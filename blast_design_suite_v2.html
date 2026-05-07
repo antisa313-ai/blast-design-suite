@@ -173,7 +173,7 @@ select option{background:var(--bg3)}
     <div class="header-top">
       <div>
         <div class="header-title">⚡ BLAST DESIGN SUITE</div>
-        <div class="header-sub">v2.1 · Coal Mine Engineering · 2025</div>
+        <div class="header-sub">v2.2 · Coal Mine Engineering · 2025</div>
       </div>
       <div class="status-pill" id="statusPill">
         <div class="status-dot dot-checking" id="statusDot"></div>
@@ -469,31 +469,34 @@ select option{background:var(--bg3)}
   <div id="tab-ai" class="hidden">
 
     <div class="section">
-      <div class="section-title"><i class="ti ti-robot" aria-hidden="true"></i> AI Blast Consultant</div>
+      <div class="section-title"><i class="ti ti-books" aria-hidden="true"></i> Knowledge Base — Blast Consultant</div>
 
-      <div id="ai-offline-banner" class="ai-offline-banner hidden">
-        <i class="ti ti-wifi-off" aria-hidden="true"></i>
-        <div>Tidak ada koneksi internet. AI Analysis tidak tersedia saat ini.<br>
-        Semua kalkulasi (Design, PPV, Tie-Up) tetap berjalan <strong>100% offline</strong>.<br>
-        Jawaban yang pernah diterima masih bisa dilihat di bagian Cache di bawah.</div>
+      <div class="alert alert-ok" style="margin-bottom:10px">
+        <i class="ti ti-circle-check" aria-hidden="true"></i>
+        <div>Berjalan <strong>100% offline</strong> — tidak perlu internet. Data bersumber dari USBM RI-8507, ISRM, AS 2187.2, Konya & Walter (1991), SNI 7571:2010, dan KepMen ESDM.</div>
       </div>
 
       <div id="ai-online-section">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5">
-          Tanya apapun seputar blast design, PPV, tie-up, eksplosif, atau safety kepada konsultan AI.
-        </div>
         <div class="ai-quick-chips">
-          <button class="chip" onclick="quickAsk('Berapa powder factor optimal untuk overburden tambang batubara open cut?')">Powder factor optimal</button>
-          <button class="chip" onclick="quickAsk('Bagaimana cara meminimalkan flyrock pada peledakan open cut?')">Reduksi flyrock</button>
-          <button class="chip" onclick="quickAsk('Kapan sebaiknya menggunakan air deck dan apa pengaruhnya terhadap PPV near-field?')">Air deck & PPV</button>
-          <button class="chip" onclick="quickAsk('Apa perbedaan ANFO vs Emulsion untuk batuan overburden tambang batubara?')">ANFO vs Emulsion</button>
-          <button class="chip" onclick="quickAsk('Jelaskan standar batas PPV yang aman untuk bangunan permukiman dan struktur industri.')">Batas aman PPV</button>
-          <button class="chip" onclick="quickAsk('Apa kelebihan dan kekurangan electronic detonator dibanding nonel untuk kontrol getaran?')">ED vs Nonel</button>
+          <button class="chip" onclick="quickAsk('powder factor optimal untuk overburden tambang batubara')">Powder factor</button>
+          <button class="chip" onclick="quickAsk('cara mengurangi flyrock pada peledakan open cut')">Flyrock</button>
+          <button class="chip" onclick="quickAsk('air deck pengaruh ppv near field')">Air deck & PPV</button>
+          <button class="chip" onclick="quickAsk('perbedaan anfo emulsion heavy anfo')">ANFO vs Emulsion</button>
+          <button class="chip" onclick="quickAsk('batas aman ppv struktur permukiman')">Batas PPV</button>
+          <button class="chip" onclick="quickAsk('electronic detonator vs nonel detonator')">ED vs Nonel</button>
+          <button class="chip" onclick="quickAsk('geometri burden spacing stemming subdrill')">Geometri</button>
+          <button class="chip" onclick="quickAsk('formula scaled distance ppv konstanta k n')">Formula PPV</button>
+          <button class="chip" onclick="quickAsk('pola tieup v pattern row by row')">Tie-Up</button>
+          <button class="chip" onclick="quickAsk('bcm stripping ratio produksi')">BCM & SR</button>
+          <button class="chip" onclick="quickAsk('keselamatan peledakan kepmen esdm')">Safety</button>
+          <button class="chip" onclick="quickAsk('penanganan misfire gagal ledak')">Misfire</button>
+          <button class="chip" onclick="quickAsk('peledakan dekat coal seam sympathetic')">Dekat Coal</button>
+          <button class="chip" onclick="quickAsk('fragmentasi kuz-ram ukuran fragment')">Fragmentasi</button>
         </div>
         <div class="ai-input-row">
-          <textarea id="ai-question" placeholder="Tulis pertanyaan blast design..." rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
-          <button class="ai-send-btn" id="ai-send-btn" onclick="sendAI()" aria-label="Kirim pertanyaan">
-            <i class="ti ti-send" aria-hidden="true"></i>
+          <textarea id="ai-question" placeholder="Cari topik blast design... contoh: 'powder factor', 'ppv batas aman', 'misfire'" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
+          <button class="ai-send-btn" id="ai-send-btn" onclick="sendAI()" aria-label="Cari">
+            <i class="ti ti-search" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -501,17 +504,10 @@ select option{background:var(--bg3)}
 
     <div class="ai-panel hidden" id="ai-main-panel">
       <div class="ai-panel-header">
-        <div class="ai-panel-title"><i class="ti ti-message-2" aria-hidden="true"></i> Jawaban Konsultan</div>
+        <div class="ai-panel-title"><i class="ti ti-books" aria-hidden="true"></i> Hasil Knowledge Base</div>
         <span id="ai-main-cache-tag"></span>
       </div>
       <div class="ai-panel-body" id="ai-main-body">...</div>
-    </div>
-
-    <div class="section hidden" id="cache-section" style="margin-top:10px">
-      <div class="section-title"><i class="ti ti-database" aria-hidden="true"></i> Cache Jawaban (tersedia offline)</div>
-      <div class="info-text" style="margin-bottom:10px">Jawaban berikut tersimpan di perangkat dan dapat diakses tanpa internet.</div>
-      <div id="cache-list"></div>
-      <button class="calc-btn secondary" onclick="clearAllCache()" style="margin-top:8px;font-size:11px;padding:10px">Hapus Semua Cache</button>
     </div>
 
   </div><!-- end tab-ai -->
@@ -583,148 +579,516 @@ window.addEventListener('offline', updateConnStatus);
 updateConnStatus();
 
 /* ═══════════════════════════════════════════════
-   AI HELPER
+   KNOWLEDGE BASE — OFFLINE AI ENGINE
+   Sumber: USBM RI-8507, ISRM, AS 2187.2,
+   Konya & Walter (1991), Atlas Copco/Dyno Nobel
+   Technical Manuals, SNI 7571:2010, KepMen ESDM
    ═══════════════════════════════════════════════ */
-const AI_SYSTEM = 'Kamu adalah konsultan blast design senior untuk tambang batubara open cut di Indonesia. Jawab dengan jelas, praktis, dan dalam bahasa Indonesia. Fokus pada aspek keselamatan, efisiensi, dan kesesuaian standar industri pertambangan Indonesia.';
+const KB = [
+  {
+    tags:['powder factor','faktor bubuk','pf','kg/bcm','kg bcm'],
+    title:'Powder Factor Optimal — Overburden Batubara',
+    source:'Konya & Walter (1991); Atlas Copco Blasting Tech Manual',
+    answer:`Powder factor optimal untuk overburden tambang batubara open cut berkisar antara 0.20–0.50 kg/BCM, dengan rentang paling umum 0.25–0.40 kg/BCM.
 
-async function callAI(prompt, maxTokens) {
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: maxTokens || 400,
-      system: AI_SYSTEM,
-      messages: [{ role: 'user', content: prompt }]
-    })
+Panduan berdasarkan kekuatan batuan:
+• Batuan lunak (shale, mudstone, UCS < 30 MPa): 0.15–0.25 kg/BCM
+• Batuan sedang (sandstone, UCS 30–80 MPa): 0.25–0.40 kg/BCM
+• Batuan keras (limestone, ironstone, UCS > 80 MPa): 0.40–0.60 kg/BCM
+
+Powder factor < 0.15 kg/BCM → fragmentasi sangat kasar, potensi boulder tinggi.
+Powder factor > 0.60 kg/BCM → risiko flyrock, airblast, dan getaran berlebih.
+
+Kalibrasi lapangan tetap diperlukan karena UCS, joint spacing, dan struktur geologi mempengaruhi hasil aktual.`
+  },
+  {
+    tags:['flyrock','fly rock','batu terbang','lemparan','jarak aman flyrock'],
+    title:'Pengendalian Flyrock pada Peledakan Open Cut',
+    source:'ISRM Suggested Methods; AS 2187.2-2006',
+    answer:`Flyrock terjadi akibat stemming tidak memadai, burden terlalu kecil, atau adanya retakan geologi yang tidak terdeteksi.
+
+Faktor penyebab utama:
+• Stemming terlalu pendek (T/B < 0.7) — penyebab paling umum
+• Burden tidak seragam akibat variasi kondisi batuan
+• Face burden lebih kecil dari design karena erosi atau backbreak
+
+Langkah pengendalian (berdasarkan AS 2187.2):
+1. Stemming minimum = 0.7 × Burden; idealnya 1.0 × Burden
+2. Survey face burden sebelum loading — pastikan burden aktual ≥ design burden
+3. Gunakan material stemming berbutir (crushed rock > kerikil > drill cutting)
+4. Kurangi charge pada baris terdepan (row 1) sebesar 10–20%
+5. Zona eksklusif minimum: 500m untuk peledakan terbuka (KepMen ESDM No.1827/2018)
+6. Untuk area dekat permukiman: gunakan stemming deck dan kurangi MIC`
+  },
+  {
+    tags:['air deck','airdeck','udara','deck charge','reduksi ppv','near field'],
+    title:'Air Deck — Prinsip, Manfaat, dan Pengaruh terhadap PPV',
+    source:'Jhanwar & Jethwa (2000) — Fragblast Journal; Chiappetta (1998)',
+    answer:`Air deck adalah ruang udara yang ditempatkan di dalam kolom isian eksplosif, memisahkan muatan menjadi dua atau lebih segmen.
+
+Posisi dan efeknya:
+• Air deck di ATAS (top air deck): mereduksi PPV near-field 20–35%, meningkatkan distribusi energi ke samping. Paling efektif untuk kontrol getaran.
+• Air deck di TENGAH (middle deck): meningkatkan fragmentasi pada kolom panjang, mengurangi boulders di bagian tengah burden.
+• Air deck di BAWAH (bottom air deck): jarang digunakan, reduksi PPV ~10%.
+
+Mekanisme kerja:
+Gas ledakan mengekspansi ke dalam ruang udara → pulsa tekanan memanjang → energi terdistribusi lebih merata sepanjang kolom batuan → fragmentasi lebih homogen dengan jumlah eksplosif lebih sedikit.
+
+Pengurangan eksplosif dengan air deck: 10–30% tanpa mengurangi kualitas fragmentasi, selama ukuran air deck tidak melebihi 30% dari total panjang kolom isian.
+
+Referensi empiris: studi Jhanwar & Jethwa (2000) pada tambang batu bara India menunjukkan reduksi PPV 25–40% dengan top air deck pada kondisi batuan sedang.`
+  },
+  {
+    tags:['anfo','emulsion','heavy anfo','perbandingan eksplosif','jenis eksplosif','bahan peledak'],
+    title:'ANFO vs Emulsion vs Heavy ANFO — Perbandingan untuk OB Batubara',
+    source:'Dyno Nobel Technical Manual (2019); Orica Mining Services Handbook',
+    answer:`Perbandingan tiga jenis eksplosif utama untuk overburden tambang batubara:
+
+ANFO (Ammonium Nitrate Fuel Oil):
+• Densitas: 0.80–0.85 g/cc
+• VOD (Velocity of Detonation): 4.000–4.500 m/s
+• Keunggulan: murah, mudah dicampur on-site, cocok untuk lubang kering
+• Kelemahan: tidak tahan air — gagal detonasi jika lubang basah; oxygen balance sensitif terhadap rasio campuran (standar: 94.5% AN + 5.5% FO)
+• Cocok untuk: overburden kering, batuan sedang-keras
+
+Emulsion:
+• Densitas: 1.10–1.25 g/cc
+• VOD: 5.000–5.500 m/s
+• Keunggulan: tahan air, energi tinggi, konsisten
+• Kelemahan: harga 2–3× lebih mahal dari ANFO
+• Cocok untuk: lubang basah, batuan keras, area dekat coal seam (risiko sympathetic detonation lebih rendah)
+
+Heavy ANFO (HANFO / Blended):
+• Densitas: 1.00–1.15 g/cc (tergantung rasio campuran)
+• VOD: 4.500–5.200 m/s
+• Keunggulan: kompromi antara biaya dan performa; tahan air parsial
+• Cocok untuk: overburden sedang-tebal, kondisi lubang semi-basah
+
+Rekomendasi umum tambang batubara Kalimantan: ANFO untuk OB kering, Heavy ANFO 70/30 untuk kondisi campuran, Emulsion murni hanya untuk lubang sangat basah atau batuan UCS > 80 MPa.`
+  },
+  {
+    tags:['ppv','getaran','vibration','batas ppv','standar ppv','peak particle velocity','aman','struktur'],
+    title:'Batas Aman PPV untuk Berbagai Jenis Struktur',
+    source:'USBM RI-8507 (Siskind et al., 1980); SNI 7571:2010; AS 2187.2-2006',
+    answer:`Standar batas PPV (Peak Particle Velocity) berdasarkan jenis struktur:
+
+Berdasarkan USBM RI-8507 (standar paling banyak dirujuk):
+• Bangunan sangat sensitif (heritage, bersejarah): ≤ 2 mm/s
+• Rumah tinggal / permukiman (plester dinding): ≤ 5 mm/s (frekuensi rendah) hingga 12.5 mm/s (frekuensi tinggi)
+• Bangunan komersial/industri ringan: ≤ 12.5–25 mm/s
+• Struktur beton/baja industri: ≤ 25–50 mm/s
+
+Berdasarkan SNI 7571:2010 (Standar Nasional Indonesia):
+• Bangunan tempat tinggal: ≤ 5 mm/s
+• Bangunan umum / fasilitas publik: ≤ 10 mm/s
+• Struktur industri: ≤ 25 mm/s
+
+Berdasarkan AS 2187.2-2006 (Australian Standard, banyak diadopsi di Kalimantan):
+• Residential: ≤ 5 mm/s (continuous), ≤ 10 mm/s (transient)
+• Commercial: ≤ 25 mm/s
+
+Catatan penting: PPV harus diukur di fondasi struktur terdekat, bukan di permukaan tanah umum. Monitoring dengan seismograph wajib dilakukan untuk blast yang berjarak < 500m dari struktur.`
+  },
+  {
+    tags:['electronic detonator','ed','nonel','non electric','detonator','delay','timing'],
+    title:'Electronic Detonator (ED) vs Non-Electric (Nonel)',
+    source:'ISRM Suggested Methods for Blast Vibration Monitoring; Orica i-kon Manual',
+    answer:`Perbandingan dua sistem detonator utama dalam tambang batubara:
+
+Electronic Detonator (ED):
+• Akurasi timing: ±0.1–1.0 ms (sangat presisi)
+• Pemrograman: setiap detonator diprogram individual via komputer lapangan
+• Rentang delay: 0–20.000 ms, bebas pilih
+• Keunggulan: kontrol PPV sangat ketat, dapat diaudit secara digital, misfire terdeteksi sebelum blasting
+• Kelemahan: harga 5–10× lebih mahal dari nonel; butuh pelatihan khusus; sensitif terhadap stray current
+• Cocok untuk: area sensitif PPV (dekat permukiman < 300m), blasting dengan MIC ketat, regulatory compliance tinggi
+
+Non-Electric / Nonel:
+• Akurasi timing: ±3–5 ms
+• Interval standar tersedia: 17, 25, 42, 65, 100, 200, 400, 500 ms
+• Keunggulan: ekonomis, andal, tidak sensitif terhadap stray current/RF, mudah digunakan
+• Kelemahan: timing tidak bisa dikustomisasi bebas; scatter timing ±5ms bisa menyebabkan detonasi simultan antar lubang
+• Cocok untuk: operasi rutin tambang batubara dengan jarak struktur > 300m
+
+Rekomendasi: gunakan ED jika jarak ke struktur < 200m atau PPV aktual mendekati batas regulasi. Nonel cukup untuk operasi standar dengan jarak aman terpenuhi.`
+  },
+  {
+    tags:['burden','spacing','geometri','stemming','subdrill','rasio sb','s/b','diameter'],
+    title:'Panduan Geometri Blast Design — Burden, Spacing, Stemming',
+    source:'Konya & Walter (1991) Surface Blast Design; Langefors & Kihlstrom (1978)',
+    answer:`Panduan desain geometri lubang ledak untuk overburden batubara open cut:
+
+Burden (B):
+• Formula Konya: B = 3.15 × D × (ρe/ρr)^(1/3)
+• Estimasi praktis: B = 25–40 × D (dalam meter, D dalam meter)
+• Batuan lunak: B/D = 35–40; Batuan sedang: B/D = 28–35; Batuan keras: B/D = 25–30
+
+Spacing (S):
+• Rasio S/B optimal: 1.0–1.3 (ideal 1.15)
+• S/B < 1.0 → overbreak, getaran tinggi
+• S/B > 1.4 → terbentuk boulders di antara lubang
+
+Stemming (T):
+• Minimum: T = 0.7 × B (AS 2187.2)
+• Optimal: T = 1.0 × B untuk kontrol flyrock terbaik
+• T < 0.7B → risiko flyrock dan airblast signifikan
+
+Subdrill (J):
+• Batuan sedang: J = 0.2–0.3 × B
+• Batuan keras: J = 0.3–0.4 × B
+• Untuk batubara (hindari overdrill): J = 0.1–0.2 × B
+
+Stiffness Ratio (H/B):
+• H/B ≥ 3: fragmentasi baik, displacement maju
+• H/B < 2: risiko cratering, fragmentasi buruk, heave ke atas
+
+Kedalaman lubang minimum: H ≥ 2 × B untuk hasil optimal.`
+  },
+  {
+    tags:['scaled distance','sd','formula ppv','k n konstanta','attenuation','predictor'],
+    title:'Formula PPV dan Scaled Distance — Dasar Empiris',
+    source:'USBM RI-8507 Siskind et al. (1980); Dowding (1985)',
+    answer:`Formula prediksi PPV yang paling banyak digunakan di industri pertambangan:
+
+Formula Scaled Distance (USBM):
+PPV = K × (R / √Q)^(-n)
+• PPV: Peak Particle Velocity (mm/s)
+• R: Jarak dari titik ledak ke titik pengukuran (meter)
+• Q: Maximum Instantaneous Charge / MIC (kg per delay)
+• K: Site constant (bergantung kondisi geologi)
+• n: Site attenuation exponent
+
+Nilai K dan n berdasarkan kondisi lapangan (USBM RI-8507):
+• Batuan keras (granite, basalt): K = 160, n = 1.6
+• Batuan sedang (sandstone, limestone): K = 100–114, n = 1.5
+• Batuan lunak (shale, coal measures): K = 50–60, n = 1.4
+• Alluvial/soil: K = 200–400, n = 1.7–2.0
+
+Catatan PENTING: Nilai K dan n di atas adalah nilai TIPIKAL, bukan site-specific. Untuk penggunaan resmi/regulasi, K dan n HARUS dikalibrasi dari minimum 20 data pengukuran seismograph di site tersebut (sesuai ISRM Suggested Methods).
+
+Safe Scaled Distance (SSD):
+SSD = R / √Q
+Untuk batas PPV 5 mm/s dengan K=100, n=1.5: SSD minimum ≈ 50 m/√kg`
+  },
+  {
+    tags:['tieup','tie up','pola tembak','echelon','v pattern','row by row','initiation','timing sequence'],
+    title:'Pola Tie-Up dan Sequence Peledakan',
+    source:'Konya & Walter (1991); Dick, Fletcher & D\'Andrea (USBM)',
+    answer:`Tiga pola tie-up utama untuk tambang batubara open cut:
+
+1. V-Pattern / Echelon:
+• Lubang tengah setiap baris meledak lebih dulu, melebar ke tepi
+• Fragmentasi terbaik karena setiap lubang memiliki dua permukaan bebas efektif
+• Arah lemparan terkontrol ke depan muka bebas
+• Cocok untuk: fragmentasi optimal, loader efficiency tinggi
+• Inter-row delay: 42–65 ms; in-row delay: 17–42 ms
+
+2. Row-by-Row:
+• Seluruh baris meledak berurutan, satu baris per delay interval
+• PPV paling rendah karena tidak ada penggabungan gelombang dari baris berbeda
+• MIC = muatan satu lubang (jika digunakan ED) atau muatan seluruh baris (nonel)
+• Cocok untuk: area dekat struktur, kontrol getaran ketat
+• Inter-row delay: 65–100 ms minimum
+
+3. Box Cut / Chevron:
+• Lubang pusat meledak duluan, membentuk void → lubang sekeliling mengikuti
+• Cocok untuk area terbatas tanpa muka bebas memadai
+• Inter-row delay: 65 ms; in-row dari pusat ke tepi: 42 ms
+
+Aturan umum minimum delay (empiris):
+• Inter-row minimum: 3 × Burden (dalam ms, B dalam meter) — contoh B=4m → ≥12ms
+• In-row minimum: 1 × Burden (ms)
+• Delay < minimum → gelombang saling berinterferensi, PPV meningkat`
+  },
+  {
+    tags:['bcm','bank cubic meter','volume','stripping ratio','sr','nisbah kupas','produksi'],
+    title:'BCM, Stripping Ratio, dan Kalkulasi Volume',
+    source:'SME Mining Engineering Handbook (3rd Ed.); Hartman & Mutmansky',
+    answer:`BCM (Bank Cubic Meter) adalah satuan volume batuan dalam kondisi insitu (belum digali).
+
+Hubungan volume:
+• BCM (insitu) = Burden × Spacing × Kedalaman efektif × Jumlah lubang
+• BCM Loose = BCM × Swell Factor
+• Swell Factor tipikal: Batuan sedang = 1.30–1.40; Batuan lunak = 1.20–1.30; Batuan keras = 1.40–1.50
+
+Stripping Ratio (SR):
+• SR = Tebal OB (m) / Tebal Coal Seam (m) — dalam satuan meter/meter
+• SR = Volume OB (BCM) / Tonase Batubara — dalam satuan BCM/ton
+• SR ≤ 4 BCM/ton: umumnya ekonomis untuk batubara termal
+• SR 4–8 BCM/ton: perlu evaluasi harga batubara
+• SR > 8 BCM/ton: biasanya tidak ekonomis kecuali batubara kokas/premium
+
+Tonase OB = BCM × Densitas batuan (ton/m³)
+• Shale/mudstone: 2.0–2.3 t/m³
+• Sandstone: 2.2–2.5 t/m³
+• Limestone: 2.5–2.7 t/m³
+
+Powder factor terhadap BCM:
+PF (kg/BCM) = Total eksplosif (kg) / Total BCM insitu`
+  },
+  {
+    tags:['keselamatan','safety','kkv','zona aman','evakuasi','clearance','msds','adr'],
+    title:'Standar Keselamatan Peledakan — Tambang Batubara Indonesia',
+    source:'KepMen ESDM No.1827.K/30/MEM/2018; PP No.55 Tahun 2010; SNI 7571:2010',
+    answer:`Persyaratan keselamatan peledakan tambang batubara berdasarkan regulasi Indonesia:
+
+Zona Eksklusi (KepMen ESDM 1827/2018):
+• Peledakan terbuka (open blasting): minimum 500 meter dari orang/kendaraan
+• Dengan penghalang (berm/tanggul): dapat dikurangi berdasarkan kajian teknis
+• Near struktur permanen: wajib pengukuran PPV dan persetujuan KTT
+
+Persyaratan personel:
+• Juru ledak wajib memiliki KIM (Kartu Izin Meledakkan) yang masih berlaku
+• Shotfirer/blaster harus bersertifikat dan terdaftar di Dinas Pertambangan
+• Pengawas operasi wajib hadir selama kegiatan pengisian dan peledakan
+
+Penyimpanan bahan peledak:
+• ANFO dan detonator HARUS disimpan terpisah minimum 300 meter
+• Gudang handak wajib memiliki izin dari Polri
+• Suhu gudang < 55°C; tidak boleh ada sumber panas/api dalam radius 50m
+
+Pre-blast checklist wajib:
+1. Survey burden aktual (face profiling)
+2. Test detonator continuity (untuk ED: firing unit check)
+3. Weather check: tidak boleh blast saat petir dalam radius 8km
+4. Clearance semua personel dari zona eksklusi
+5. Warning signal: 3 sirine (warning, final, all-clear)
+6. Post-blast inspection minimum 30 menit setelah detonasi`
+  },
+  {
+    tags:['misfire','gagal ledak','hangfire','squib','penanganan misfire'],
+    title:'Penanganan Misfire (Gagal Ledak)',
+    source:'AS 2187.2-2006; KepMen ESDM No.1827/2018; ISEE Blasters Handbook',
+    answer:`Misfire adalah kondisi dimana detonator atau bahan peledak gagal berfungsi sesuai rencana — termasuk situasi paling berbahaya dalam kegiatan peledakan.
+
+Prosedur penanganan misfire (sesuai AS 2187.2 & KepMen ESDM):
+
+Langkah WAJIB segera setelah suspect misfire:
+1. JANGAN dekati area blast minimum 30 menit setelah waktu peledakan rencana
+2. Pasang barricade dan tanda bahaya di semua akses menuju area
+3. Laporkan kepada Kepala Teknik Tambang (KTT) segera
+
+Investigasi dan penanganan:
+4. Hanya Juru Ledak bersertifikat yang boleh mendekati misfire
+5. Identifikasi lubang misfire — jangan pernah mencoba re-prime dari atas
+6. Metode yang diizinkan:
+   • Stemming wash-out dengan air bertekanan → re-load
+   • Secondary hole: bor lubang baru paralel ±0.3m dari lubang misfire → ledakkan untuk mengguncang misfire
+   • Pull-out dengan water jetting (HANYA jika stemming belum terkontaminasi)
+7. DILARANG keras: memukul, menggunakan panas, atau menarik detonator paksa
+
+Dokumentasi wajib:
+• Setiap misfire harus dicatat dalam Buku Peledakan
+• Laporan tertulis ke KTT dalam 24 jam
+• Investigasi penyebab dan corrective action terdokumentasi`
+  },
+  {
+    tags:['coal seam','batubara','sympathetic','spontaneous combustion','swabakar','dekat coal'],
+    title:'Peledakan di Dekat Coal Seam — Risiko Khusus',
+    source:'ACARP Research C9016; IME Safety Library; Dyno Nobel Coal Proximity Guide',
+    answer:`Peledakan di dekat lapisan batubara memiliki risiko tambahan yang wajib diperhatikan:
+
+Sympathetic Detonation:
+• Batubara dapat mengalami zündung (ignition) akibat gelombang kejut dari peledakan
+• Jarak aman minimum antara batas bawah lubang ledak dan top of coal: minimal 2× diameter lubang (untuk diameter > 150mm: min 0.5m buffer)
+• Subdrill HARUS dibatasi — jangan overcalculate subdrill jika mendekati coal seam
+
+Spontaneous Combustion (Swabakar):
+• Batubara yang terekspos udara dan panas dari peledakan berisiko swabakar
+• Gunakan eksplosif dengan oxygen balance negatif atau netral (ANFO standar OK; hindari explosive dengan excess oxygen)
+• Setelah blasting, coal yang terekspos harus segera di-cover atau diangkat dalam 24–48 jam di area rawan swabakar
+
+Rekomendasi eksplosif dekat coal (< 3m dari seam):
+• Gunakan Emulsion atau Heavy ANFO — bukan ANFO murni
+• Kurangi charge density pada lubang-lubang terbawah (deck loading)
+• Pertimbangkan buffer row dengan powder factor lebih rendah
+
+Monitoring suhu post-blast:
+• Gunakan thermal gun atau infrared camera pada area coal yang terekspos
+• Suhu > 60°C → segera basahi dan laporkan ke Mine Safety Officer`
+  },
+  {
+    tags:['fragmentasi','fragment','ukuran batuan','boulder','kusnetsov','kuz-ram','f50','f80'],
+    title:'Prediksi Ukuran Fragmentasi — Model Kuz-Ram',
+    source:'Cunningham (1987) Kuz-Ram Model; Kuznetsov (1973); Rosin-Rammler Distribution',
+    answer:`Model Kuz-Ram (Cunningham, 1987) adalah model prediksi fragmentasi paling banyak digunakan di industri:
+
+Formula Mean Fragment Size (Kuznetsov):
+X50 = A × (V/Q)^0.8 × Q^(1/6) × (115/RWS)^(19/30)
+
+• X50: ukuran fragment rata-rata (cm)
+• A: rock factor (batuan lunak=7, sedang=10, keras=13)
+• V: volume batuan per lubang (m³) = B × S × H
+• Q: muatan eksplosif per lubang (kg)
+• RWS: Relative Weight Strength eksplosif (ANFO=100, Emulsion=115–120)
+
+Panduan praktis ukuran fragment untuk coal mining:
+• Target X50 untuk excavator bucket 10–15m³: < 50 cm
+• Target X50 untuk crusher feed: < 30 cm
+• Boulder (> 1m): harus < 5% dari total volume untuk produktivitas optimal
+
+Faktor yang meningkatkan fragmentasi:
+✓ Powder factor lebih tinggi (dalam batas aman)
+✓ Stemming lebih pendek (hati-hati flyrock)
+✓ Spacing lebih kecil
+✓ Delay antar lubang optimal (tidak terlalu cepat/lambat)
+✓ Penggunaan air deck (distribusi energi lebih merata)
+
+Faktor yang memperburuk fragmentasi:
+✗ Joint spacing terlalu besar atau terlalu kecil
+✗ Batuan massif (tidak terjointkan)
+✗ Delay terlalu pendek (lubang meledak hampir bersamaan → saling mengganggu)`
+  }
+];
+
+/* ═══════════════════════════════════════════════
+   KB SEARCH ENGINE
+   ═══════════════════════════════════════════════ */
+function kbSearch(query) {
+  const q = query.toLowerCase().replace(/[^a-z0-9\s]/g,'');
+  const words = q.split(/\s+/).filter(w => w.length > 2);
+
+  let best = null, bestScore = 0;
+
+  KB.forEach(entry => {
+    let score = 0;
+    const tagStr = entry.tags.join(' ');
+    const titleStr = entry.title.toLowerCase();
+    const answerStr = entry.answer.toLowerCase();
+
+    words.forEach(word => {
+      if (tagStr.includes(word)) score += 10;
+      if (titleStr.includes(word)) score += 6;
+      if (answerStr.includes(word)) score += 2;
+    });
+
+    // bonus: exact tag match
+    entry.tags.forEach(tag => {
+      if (q.includes(tag)) score += 15;
+    });
+
+    if (score > bestScore) { bestScore = score; best = entry; }
   });
-  const data = await resp.json();
-  return data.content?.[0]?.text || 'Tidak ada respons dari AI.';
+
+  return bestScore >= 8 ? best : null;
+}
+
+function kbAnswer(query) {
+  const result = kbSearch(query);
+  if (!result) {
+    return {
+      title: 'Topik Tidak Ditemukan di Knowledge Base',
+      source: null,
+      answer: `Pertanyaan "${query}" belum tercakup dalam knowledge base saat ini.\n\nTopik yang tersedia:\n• Powder factor optimal\n• Pengendalian flyrock\n• Air deck dan pengaruh PPV\n• ANFO vs Emulsion vs Heavy ANFO\n• Batas aman PPV per jenis struktur\n• Electronic Detonator vs Nonel\n• Geometri burden, spacing, stemming\n• Formula PPV dan Scaled Distance\n• Pola Tie-Up (V-pattern, row-by-row)\n• BCM dan Stripping Ratio\n• Standar keselamatan (KepMen ESDM)\n• Penanganan Misfire\n• Peledakan dekat Coal Seam\n• Prediksi fragmentasi (Kuz-Ram)`
+    };
+  }
+  return result;
+}
+
+/* Inline AI insight — context-aware dari hasil kalkulasi */
+function kbInlineInsight(context) {
+  const { type, data } = context;
+  if (type === 'design') {
+    const pf = data.pf;
+    const sbr = data.sbr;
+    const stemR = data.stemR;
+    let tips = [];
+    if (pf < 0.15) tips.push('⚠ Powder factor sangat rendah ('+pf.toFixed(3)+' kg/BCM) — risiko fragmentasi kasar. Referensi Konya (1991): PF optimal batubara OB = 0.20–0.50 kg/BCM.');
+    else if (pf >= 0.2 && pf <= 0.5) tips.push('✓ Powder factor '+pf.toFixed(3)+' kg/BCM berada dalam rentang optimal untuk overburden batubara (0.20–0.50 kg/BCM) per Konya & Walter (1991).');
+    else if (pf > 0.5) tips.push('⚠ Powder factor tinggi ('+pf.toFixed(3)+' kg/BCM) — potensi flyrock dan airblast. Tinjau ulang burden atau stemming (AS 2187.2).');
+    if (stemR < 0.7) tips.push('⚠ Stemming ratio T/B = '+stemR.toFixed(2)+' di bawah minimum 0.7 (AS 2187.2-2006) — risiko flyrock signifikan.');
+    if (sbr < 1.0 || sbr > 1.35) tips.push('⚠ Rasio S/B = '+sbr.toFixed(2)+' di luar rentang ideal 1.0–1.3 (Langefors & Kihlstrom, 1978).');
+    if (data.hasAD) tips.push('ℹ Air deck aktif: berdasarkan Jhanwar & Jethwa (2000), top air deck mereduksi PPV near-field 20–35% dan meningkatkan distribusi energi.');
+    if (!tips.length) tips.push('✓ Parameter desain dalam batas normal. Verifikasi burden aktual di lapangan sebelum loading (survey face profiling).');
+    return tips.join('\n\n');
+  }
+  if (type === 'ppv') {
+    const ppv = data.ppv, limit = data.limit, safeR = data.safeR, dist = data.dist;
+    let tips = [];
+    if (ppv > limit) tips.push('⚠ PPV = '+ppv.toFixed(2)+' mm/s MELEBIHI batas '+limit+' mm/s pada jarak '+dist+'m. Kurangi MIC atau tambah jarak. Referensi: USBM RI-8507.');
+    else if (ppv > limit*0.7) tips.push('⚠ PPV = '+ppv.toFixed(2)+' mm/s mendekati batas ('+limit+' mm/s). Pertimbangkan ED untuk timing presisi atau kurangi MIC (USBM RI-8507).');
+    else tips.push('✓ PPV = '+ppv.toFixed(2)+' mm/s aman di bawah batas '+limit+' mm/s pada jarak '+dist+'m (USBM RI-8507 / SNI 7571:2010).');
+    tips.push('ℹ Jarak aman minimum untuk PPV ≤ '+limit+' mm/s dengan MIC ini: '+safeR.toFixed(0)+'m. Catatan: nilai K dan n tipikal — kalibrasi site-specific diperlukan untuk monitoring resmi.');
+    return tips.join('\n\n');
+  }
+  if (type === 'tieup') {
+    const goal = data.goal, dist = data.dist;
+    let tips = [];
+    if (goal === 'vibration' || goal === 'both') tips.push('✓ Untuk kontrol getaran: gunakan inter-row delay minimum 3×B ms (Konya & Walter, 1991). Row-by-row memberikan MIC efektif paling rendah.');
+    if (dist && dist < 300) tips.push('⚠ Jarak struktur '+dist+'m tergolong dekat — pertimbangkan Electronic Detonator (akurasi ±1ms) untuk memastikan tidak ada simultaneous detonation yang meningkatkan PPV (ISRM Suggested Methods).');
+    if (!tips.length) tips.push('✓ Konfigurasi tie-up siap. Pastikan inter-row delay ≥ 3×Burden (ms) dan stemming material berbutir untuk hasil optimal (AS 2187.2-2006).');
+    return tips.join('\n\n');
+  }
+  return '';
 }
 
 function cacheKey(prompt) {
   return prompt.substring(0, 80).replace(/\s+/g, ' ').trim();
 }
 
-/* Render inline AI insight (after calc results) */
-async function renderInlineAI(targetId, prompt) {
+/* Render inline KB insight (after calc results) */
+function renderInlineAI(targetId, prompt, kbContext) {
   const el = document.getElementById(targetId);
   if (!el) return;
-
-  const key = cacheKey(prompt);
-  const cached = aiCache[key];
-
-  if (!isOnline) {
-    if (cached) {
-      el.innerHTML = buildAIPanel(cached, true);
-    }
-    return;
+  let text = '';
+  if (kbContext) {
+    text = kbInlineInsight(kbContext);
+  } else {
+    const result = kbAnswer(prompt);
+    text = result.answer;
   }
-
-  el.innerHTML = buildAIPanel('Menganalisis hasil...', false, true);
-
-  try {
-    const text = await callAI(prompt, 350);
-    el.innerHTML = buildAIPanel(text, false);
-    aiCache[key] = text;
-    saveCache();
-    renderCacheSection();
-  } catch(e) {
-    el.innerHTML = '';
-  }
+  if (!text) return;
+  el.innerHTML = buildAIPanel(text, false, false, kbContext ? null : kbSearch(prompt));
 }
 
-function buildAIPanel(text, isCached, isLoading) {
+function buildAIPanel(text, isCached, isLoading, kbEntry) {
+  const sourceHtml = kbEntry ? `<span style="font-size:9px;color:var(--text3);margin-left:8px">📚 ${kbEntry.source}</span>` : '';
   return `<div class="ai-panel">
     <div class="ai-panel-header">
-      <div class="ai-panel-title"><i class="ti ti-robot" aria-hidden="true"></i> AI Insight</div>
-      ${isCached ? '<span class="ai-cached-tag">CACHED</span>' : ''}
+      <div class="ai-panel-title"><i class="ti ti-books" aria-hidden="true"></i> Knowledge Base${sourceHtml}</div>
+      ${isCached ? '<span class="ai-cached-tag">CACHED</span>' : '<span class="ai-cached-tag" style="background:var(--green-bg);color:var(--green);border-color:var(--green-border)">OFFLINE ✓</span>'}
     </div>
     <div class="ai-panel-body${isLoading ? ' loading' : ''}">${text}</div>
   </div>`;
 }
 
 /* ═══════════════════════════════════════════════
-   AI TAB — FULL CHAT
+   AI TAB — KB SEARCH
    ═══════════════════════════════════════════════ */
 function quickAsk(q) {
   document.getElementById('ai-question').value = q;
   sendAI();
 }
 
-async function sendAI() {
+function sendAI() {
   const q = document.getElementById('ai-question').value.trim();
   if (!q) return;
 
   const panel = document.getElementById('ai-main-panel');
   const body = document.getElementById('ai-main-body');
   const cacheTag = document.getElementById('ai-main-cache-tag');
-  const btn = document.getElementById('ai-send-btn');
   panel.classList.remove('hidden');
 
-  const key = cacheKey(q);
+  const result = kbAnswer(q);
+  body.className = 'ai-panel-body';
+  body.textContent = result.answer;
+  cacheTag.innerHTML = result.source
+    ? `<span style="font-size:9px;color:var(--text3)">📚 ${result.source}</span>`
+    : '';
 
-  if (!isOnline) {
-    const cached = aiCache[key];
-    if (cached) {
-      body.className = 'ai-panel-body';
-      body.textContent = cached;
-      cacheTag.innerHTML = '<span class="ai-cached-tag">CACHED</span>';
-    } else {
-      body.className = 'ai-panel-body error';
-      body.textContent = 'Offline — jawaban belum tersimpan di cache. Sambungkan internet untuk menggunakan AI.';
-      cacheTag.innerHTML = '';
-    }
-    return;
-  }
-
-  btn.disabled = true;
-  body.className = 'ai-panel-body loading';
-  body.textContent = 'Claude sedang menganalisis...';
-  cacheTag.innerHTML = '';
-
-  try {
-    const text = await callAI(q, 600);
-    body.className = 'ai-panel-body';
-    body.textContent = text;
-    aiCache[key] = text;
-    saveCache();
-    document.getElementById('ai-question').value = '';
-    renderCacheSection();
-  } catch(e) {
-    body.className = 'ai-panel-body error';
-    body.textContent = 'Gagal menghubungi AI. Periksa koneksi internet.';
-  } finally {
-    btn.disabled = false;
-  }
+  document.getElementById('ai-question').value = '';
 }
 
 function renderCacheSection() {
   const section = document.getElementById('cache-section');
-  const list = document.getElementById('cache-list');
-  const keys = Object.keys(aiCache);
-  if (!keys.length) { section.classList.add('hidden'); return; }
-  section.classList.remove('hidden');
-  list.innerHTML = keys.map((k, i) => `
-    <div class="cache-list-item">
-      <span class="cache-key">${k}...</span>
-      <button class="cache-del" onclick="deleteCache(${i})" aria-label="Hapus">✕</button>
-    </div>`).join('');
+  if (section) section.classList.add('hidden');
 }
 
-function deleteCache(idx) {
-  const keys = Object.keys(aiCache);
-  if (keys[idx]) { delete aiCache[keys[idx]]; saveCache(); renderCacheSection(); }
-}
+function deleteCache() {}
 
 function clearAllCache() {
-  if (confirm('Hapus semua cache jawaban AI?')) {
-    aiCache = {};
-    saveCache();
-    renderCacheSection();
-    const panel = document.getElementById('ai-main-panel');
-    panel.classList.add('hidden');
-  }
+  const panel = document.getElementById('ai-main-panel');
+  if (panel) panel.classList.add('hidden');
 }
 
 /* ═══════════════════════════════════════════════
@@ -919,17 +1283,11 @@ function calcDesign() {
   `;
   document.getElementById('design-results').classList.remove('hidden');
 
-  // AI Insight
-  const aiPrompt = `Analisis blast design berikut untuk tambang batubara open cut:
-- Burden=${B}m, Spacing=${S}m, Kedalaman=${H}m, Diameter=${D}mm
-- Stemming=${T}m, Subdrill=${J}m${hasAD?', Air deck='+AD+'m':''}
-- Eksplosif: ${expName} (${rho} g/cc)
-- Eksplosif/lubang: ${expKg.toFixed(1)}kg, Total: ${totalExp.toFixed(0)}kg
-- Powder factor: ${powderFactor.toFixed(3)} kg/BCM, S/B ratio: ${sbRatio.toFixed(2)}
-- Total lubang: ${totalHoles} (${rows} baris × ${hpr} lubang)
-Berikan penilaian singkat dan 1-2 rekomendasi paling kritis. Maksimal 4 kalimat.`;
-
-  renderInlineAI('design-ai-panel', aiPrompt);
+  // KB Insight
+  renderInlineAI('design-ai-panel', '', {
+    type: 'design',
+    data: { pf: powderFactor, sbr: sbRatio, stemR: stemmingRatio, hasAD }
+  });
 }
 
 function alertHTML(type, msg) {
@@ -1027,17 +1385,13 @@ function calcPPV() {
   `;
   document.getElementById('ppv-results').classList.remove('hidden');
 
-  // AI Insight
-  const ppvVals = dists.map(R => `${R}m→${calcPPVAt(R,MIC,K,n).toFixed(2)}mm/s`).join(', ');
-  const aiPrompt = `Analisis hasil prediksi PPV beledakan tambang batubara:
-- MIC: ${MIC}kg/delay, Batuan: ${rockType}, K=${K}, n=${n}
-- Batas PPV struktur: ${limit} mm/s
-- Jarak aman minimum: ${safeR.toFixed(0)}m
-- Hasil per jarak: ${ppvVals}
-${dangerDists.length ? '- Jarak BAHAYA (PPV > batas): '+dangerDists.join(', ')+'m' : '- Semua jarak dalam batas aman'}
-Berikan interpretasi singkat dan rekomendasi tindakan jika ada jarak berbahaya. Maks 4 kalimat.`;
-
-  renderInlineAI('ppv-ai-panel', aiPrompt);
+  // KB Insight — gunakan PPV dari jarak pertama sebagai representasi
+  const firstDist = dists[0];
+  const firstPPV = calcPPVAt(firstDist, MIC, K, n);
+  renderInlineAI('ppv-ai-panel', '', {
+    type: 'ppv',
+    data: { ppv: firstPPV, limit, safeR, dist: firstDist }
+  });
 }
 
 /* ═══════════════════════════════════════════════
@@ -1163,16 +1517,11 @@ function calcTieUp() {
   `;
   document.getElementById('tieup-results').classList.remove('hidden');
 
-  // AI Insight
-  const goalLabel = {frag:'Fragmentasi optimal',vibration:'Kontrol getaran',both:'Fragmentasi + kontrol getaran'}[goal];
-  const aiPrompt = `Rekomendasi tie-up untuk blast design tambang batubara:
-- ${rows} baris × ${holes} lubang (total ${rows*holes} lubang)
-- Tujuan: ${goalLabel}
-- Muka bebas: ${face === 'corner' ? '2 muka bebas (corner)' : '1 muka bebas'}
-${dist ? '- Jarak ke struktur: '+dist+'m' : ''}
-Berikan 1-2 tips praktis tambahan yang paling relevan untuk kondisi ini. Maks 3 kalimat.`;
-
-  renderInlineAI('tieup-ai-panel', aiPrompt);
+  // KB Insight
+  renderInlineAI('tieup-ai-panel', '', {
+    type: 'tieup',
+    data: { goal, dist }
+  });
 }
 </script>
 </body>
