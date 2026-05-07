@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Blast Design Suite v2 — Coal Mine Engineering</title>
+<title>💥 Blast Design Suite — Coal Mine</title>
 <style>
 .ti{display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0}
 .ti svg{width:1em;height:1em;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
@@ -22,10 +22,10 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'S
 
 .app{max-width:460px;margin:0 auto;padding:12px 12px 80px}
 
-.header{padding:16px 0 12px;border-bottom:1px solid var(--border);margin-bottom:16px}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.header-title{font-size:20px;font-weight:700;color:var(--amber);letter-spacing:0.5px}
-.header-sub{font-size:11px;color:var(--text3);margin-top:3px;letter-spacing:1px;text-transform:uppercase}
+.header{padding:14px 0 12px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.header-title{font-size:18px;font-weight:700;color:var(--amber);letter-spacing:0.5px;line-height:1.2}
+.header-sub{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
 
 /* STATUS BADGE */
 .status-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:0.3px;padding:4px 9px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);white-space:nowrap;flex-shrink:0;margin-top:4px}
@@ -172,13 +172,40 @@ select option{background:var(--bg3)}
 
   <div class="header">
     <div class="header-top">
-      <div>
-        <div class="header-title">⚡ BLAST DESIGN SUITE</div>
-        <div class="header-sub">v2.2 · Coal Mine Engineering · 2025</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="app-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="ig" cx="40%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="#f5c842"/>
+                <stop offset="100%" stop-color="#c27a00"/>
+              </radialGradient>
+            </defs>
+            <rect width="48" height="48" rx="12" fill="#1a1200"/>
+            <rect width="48" height="48" rx="12" fill="url(#ig)" opacity="0.15"/>
+            <!-- Blast symbol: drill hole + explosion lines -->
+            <circle cx="24" cy="26" r="5" fill="none" stroke="#d29922" stroke-width="2.2"/>
+            <circle cx="24" cy="26" r="2" fill="#d29922"/>
+            <!-- explosion rays -->
+            <line x1="24" y1="8"  x2="24" y2="14" stroke="#f5c842" stroke-width="2" stroke-linecap="round"/>
+            <line x1="36" y1="13" x2="32" y2="17" stroke="#f5c842" stroke-width="2" stroke-linecap="round"/>
+            <line x1="40" y1="26" x2="34" y2="26" stroke="#f5c842" stroke-width="2" stroke-linecap="round"/>
+            <line x1="36" y1="38" x2="32" y2="34" stroke="#d29922" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            <line x1="12" y1="13" x2="16" y2="17" stroke="#f5c842" stroke-width="2" stroke-linecap="round"/>
+            <line x1="8"  y1="26" x2="14" y2="26" stroke="#f5c842" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="38" x2="16" y2="34" stroke="#d29922" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            <!-- drill stem going down -->
+            <rect x="22.5" y="30" width="3" height="10" rx="1.5" fill="#d29922" opacity="0.7"/>
+          </svg>
+        </div>
+        <div>
+          <div class="header-title">BLAST DESIGN SUITE</div>
+          <div class="header-sub">v2.3 · Coal Mine Engineering · 2025</div>
+        </div>
       </div>
-      <div class="status-pill" id="statusPill">
-        <div class="status-dot dot-checking" id="statusDot"></div>
-        <span id="statusText">Checking...</span>
+      <div class="status-pill">
+        <div class="status-dot dot-online"></div>
+        <span>Offline ✓</span>
       </div>
     </div>
   </div>
@@ -544,40 +571,7 @@ select option{background:var(--bg3)}
 /* ═══════════════════════════════════════════════
    CONNECTIVITY & CACHE SYSTEM
    ═══════════════════════════════════════════════ */
-const CACHE_KEY = 'blast_ai_cache_v2';
-let isOnline = navigator.onLine;
-let aiCache = {};
-
-try { aiCache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch(e) { aiCache = {}; }
-
-function saveCache() {
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify(aiCache)); } catch(e) {}
-}
-
-function updateConnStatus() {
-  isOnline = navigator.onLine;
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
-  const banner = document.getElementById('ai-offline-banner');
-  const onlineSec = document.getElementById('ai-online-section');
-
-  if (isOnline) {
-    dot.className = 'status-dot dot-online';
-    txt.textContent = 'Online';
-    if (banner) banner.classList.add('hidden');
-    if (onlineSec) onlineSec.style.display = '';
-  } else {
-    dot.className = 'status-dot dot-offline';
-    txt.textContent = 'Offline';
-    if (banner) banner.classList.remove('hidden');
-    if (onlineSec) onlineSec.style.display = 'none';
-  }
-  renderCacheSection();
-}
-
-window.addEventListener('online', updateConnStatus);
-window.addEventListener('offline', updateConnStatus);
-updateConnStatus();
+/* KB mode — fully offline, no network calls needed */
 
 /* ═══════════════════════════════════════════════
    KNOWLEDGE BASE — OFFLINE AI ENGINE
