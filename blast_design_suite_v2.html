@@ -22,8 +22,17 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'S
 .app{max-width:460px;margin:0 auto;padding:12px 12px 80px}
 
 .header{padding:16px 0 12px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .header-title{font-size:20px;font-weight:700;color:var(--amber);letter-spacing:0.5px}
 .header-sub{font-size:11px;color:var(--text3);margin-top:3px;letter-spacing:1px;text-transform:uppercase}
+
+/* STATUS BADGE */
+.status-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:0.3px;padding:4px 9px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);white-space:nowrap;flex-shrink:0;margin-top:4px}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dot-online{background:var(--green)}
+.dot-offline{background:var(--red)}
+.dot-checking{background:var(--amber);animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 
 .tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--bg2);padding:4px;border-radius:var(--radius);border:1px solid var(--border)}
 .tab{flex:1;padding:9px 4px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.3px;border-radius:6px;cursor:pointer;color:var(--text2);transition:all 0.2s;border:none;background:transparent;font-family:inherit}
@@ -39,15 +48,16 @@ html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:'S
 .field-row{display:flex;gap:8px}
 .field-row .field{flex:1;margin-bottom:0}
 
-input[type=number],input[type=text],select{
+input[type=number],input[type=text],select,textarea{
   width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);
   color:var(--text);font-size:15px;font-family:inherit;padding:11px 12px;
   outline:none;transition:border-color 0.2s;-webkit-appearance:none;
   -moz-appearance:textfield;
 }
+textarea{font-size:13px;resize:none;line-height:1.5}
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
-input[type=number]:focus,input[type=text]:focus,select:focus{border-color:var(--amber);background:var(--bg2)}
+input[type=number]:focus,input[type=text]:focus,select:focus,textarea:focus{border-color:var(--amber);background:var(--bg2)}
 select{cursor:pointer}
 select option{background:var(--bg3)}
 
@@ -108,6 +118,36 @@ select option{background:var(--bg3)}
 .toggle input:checked+.toggle-slider{background:var(--amber)}
 .toggle input:checked+.toggle-slider:before{transform:translateX(16px)}
 
+/* AI PANEL */
+.ai-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-top:10px}
+.ai-panel-header{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.ai-panel-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:6px}
+.ai-cached-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.ai-panel-body{padding:12px 13px;font-size:12px;color:var(--text2);line-height:1.7;white-space:pre-wrap}
+.ai-panel-body.loading{color:var(--text3);font-style:italic}
+.ai-panel-body.error{color:var(--red);font-size:11px}
+
+/* AI TAB STYLES */
+.ai-quick-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{background:var(--bg3);border:1px solid var(--border2);border-radius:16px;padding:5px 11px;font-size:11px;color:var(--text2);cursor:pointer;font-family:inherit;transition:all 0.15s}
+.chip:hover{border-color:var(--amber);color:var(--amber)}
+.chip:active{opacity:0.7}
+
+.ai-input-row{display:flex;gap:8px;align-items:flex-end}
+.ai-input-row textarea{flex:1;border-radius:var(--radius);min-height:48px;max-height:120px}
+.ai-send-btn{width:44px;height:44px;background:var(--amber);border:none;border-radius:var(--radius);color:#0d1117;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.15s}
+.ai-send-btn:active{opacity:0.7}
+.ai-send-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+.ai-offline-banner{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);font-size:11px;color:var(--red);line-height:1.5;margin-bottom:10px}
+.ai-offline-banner i{font-size:15px;flex-shrink:0;margin-top:1px}
+
+.cache-list-item{padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cache-list-item:last-child{border:none}
+.cache-key{font-size:11px;color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cache-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:2px 4px;border-radius:4px}
+.cache-del:hover{color:var(--red)}
+
 /* NUMPAD OVERLAY */
 .numpad-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;flex-direction:column;justify-content:flex-end}
 .numpad-overlay.open{display:flex}
@@ -130,14 +170,23 @@ select option{background:var(--bg3)}
 <div class="app">
 
   <div class="header">
-    <div class="header-title">⚡ BLAST DESIGN SUITE</div>
-    <div class="header-sub">v2.0 · Coal Mine Engineering · 2025</div>
+    <div class="header-top">
+      <div>
+        <div class="header-title">⚡ BLAST DESIGN SUITE</div>
+        <div class="header-sub">v2.1 · Coal Mine Engineering · 2025</div>
+      </div>
+      <div class="status-pill" id="statusPill">
+        <div class="status-dot dot-checking" id="statusDot"></div>
+        <span id="statusText">Checking...</span>
+      </div>
+    </div>
   </div>
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('design')">Design</button>
     <button class="tab" onclick="switchTab('ppv')">PPV</button>
     <button class="tab" onclick="switchTab('tieup')">Tie-Up</button>
+    <button class="tab" onclick="switchTab('ai')">AI ✦</button>
   </div>
 
   <!-- ═══════════════ TAB: DESIGN ═══════════════ -->
@@ -269,6 +318,7 @@ select option{background:var(--bg3)}
 
     <div id="design-results" class="hidden" style="margin-top:12px">
       <div class="result-grid" id="design-result-grid"></div>
+      <div id="design-ai-panel"></div>
     </div>
 
   </div><!-- end tab-design -->
@@ -354,6 +404,7 @@ select option{background:var(--bg3)}
     </div>
 
     <div id="ppv-results" class="hidden"></div>
+    <div id="ppv-ai-panel"></div>
 
   </div><!-- end tab-ppv -->
 
@@ -410,8 +461,60 @@ select option{background:var(--bg3)}
     </div>
 
     <div id="tieup-results" class="hidden"></div>
+    <div id="tieup-ai-panel"></div>
 
   </div><!-- end tab-tieup -->
+
+  <!-- ═══════════════ TAB: AI ANALYSIS ═══════════════ -->
+  <div id="tab-ai" class="hidden">
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-robot" aria-hidden="true"></i> AI Blast Consultant</div>
+
+      <div id="ai-offline-banner" class="ai-offline-banner hidden">
+        <i class="ti ti-wifi-off" aria-hidden="true"></i>
+        <div>Tidak ada koneksi internet. AI Analysis tidak tersedia saat ini.<br>
+        Semua kalkulasi (Design, PPV, Tie-Up) tetap berjalan <strong>100% offline</strong>.<br>
+        Jawaban yang pernah diterima masih bisa dilihat di bagian Cache di bawah.</div>
+      </div>
+
+      <div id="ai-online-section">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5">
+          Tanya apapun seputar blast design, PPV, tie-up, eksplosif, atau safety kepada konsultan AI.
+        </div>
+        <div class="ai-quick-chips">
+          <button class="chip" onclick="quickAsk('Berapa powder factor optimal untuk overburden tambang batubara open cut?')">Powder factor optimal</button>
+          <button class="chip" onclick="quickAsk('Bagaimana cara meminimalkan flyrock pada peledakan open cut?')">Reduksi flyrock</button>
+          <button class="chip" onclick="quickAsk('Kapan sebaiknya menggunakan air deck dan apa pengaruhnya terhadap PPV near-field?')">Air deck & PPV</button>
+          <button class="chip" onclick="quickAsk('Apa perbedaan ANFO vs Emulsion untuk batuan overburden tambang batubara?')">ANFO vs Emulsion</button>
+          <button class="chip" onclick="quickAsk('Jelaskan standar batas PPV yang aman untuk bangunan permukiman dan struktur industri.')">Batas aman PPV</button>
+          <button class="chip" onclick="quickAsk('Apa kelebihan dan kekurangan electronic detonator dibanding nonel untuk kontrol getaran?')">ED vs Nonel</button>
+        </div>
+        <div class="ai-input-row">
+          <textarea id="ai-question" placeholder="Tulis pertanyaan blast design..." rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
+          <button class="ai-send-btn" id="ai-send-btn" onclick="sendAI()" aria-label="Kirim pertanyaan">
+            <i class="ti ti-send" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-panel hidden" id="ai-main-panel">
+      <div class="ai-panel-header">
+        <div class="ai-panel-title"><i class="ti ti-message-2" aria-hidden="true"></i> Jawaban Konsultan</div>
+        <span id="ai-main-cache-tag"></span>
+      </div>
+      <div class="ai-panel-body" id="ai-main-body">...</div>
+    </div>
+
+    <div class="section hidden" id="cache-section" style="margin-top:10px">
+      <div class="section-title"><i class="ti ti-database" aria-hidden="true"></i> Cache Jawaban (tersedia offline)</div>
+      <div class="info-text" style="margin-bottom:10px">Jawaban berikut tersimpan di perangkat dan dapat diakses tanpa internet.</div>
+      <div id="cache-list"></div>
+      <button class="calc-btn secondary" onclick="clearAllCache()" style="margin-top:8px;font-size:11px;padding:10px">Hapus Semua Cache</button>
+    </div>
+
+  </div><!-- end tab-ai -->
 
 </div><!-- end .app -->
 
@@ -441,7 +544,192 @@ select option{background:var(--bg3)}
 </div>
 
 <script>
-/* ──────────────── NUMPAD ──────────────── */
+/* ═══════════════════════════════════════════════
+   CONNECTIVITY & CACHE SYSTEM
+   ═══════════════════════════════════════════════ */
+const CACHE_KEY = 'blast_ai_cache_v2';
+let isOnline = navigator.onLine;
+let aiCache = {};
+
+try { aiCache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch(e) { aiCache = {}; }
+
+function saveCache() {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(aiCache)); } catch(e) {}
+}
+
+function updateConnStatus() {
+  isOnline = navigator.onLine;
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  const banner = document.getElementById('ai-offline-banner');
+  const onlineSec = document.getElementById('ai-online-section');
+
+  if (isOnline) {
+    dot.className = 'status-dot dot-online';
+    txt.textContent = 'Online';
+    if (banner) banner.classList.add('hidden');
+    if (onlineSec) onlineSec.style.display = '';
+  } else {
+    dot.className = 'status-dot dot-offline';
+    txt.textContent = 'Offline';
+    if (banner) banner.classList.remove('hidden');
+    if (onlineSec) onlineSec.style.display = 'none';
+  }
+  renderCacheSection();
+}
+
+window.addEventListener('online', updateConnStatus);
+window.addEventListener('offline', updateConnStatus);
+updateConnStatus();
+
+/* ═══════════════════════════════════════════════
+   AI HELPER
+   ═══════════════════════════════════════════════ */
+const AI_SYSTEM = 'Kamu adalah konsultan blast design senior untuk tambang batubara open cut di Indonesia. Jawab dengan jelas, praktis, dan dalam bahasa Indonesia. Fokus pada aspek keselamatan, efisiensi, dan kesesuaian standar industri pertambangan Indonesia.';
+
+async function callAI(prompt, maxTokens) {
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: maxTokens || 400,
+      system: AI_SYSTEM,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await resp.json();
+  return data.content?.[0]?.text || 'Tidak ada respons dari AI.';
+}
+
+function cacheKey(prompt) {
+  return prompt.substring(0, 80).replace(/\s+/g, ' ').trim();
+}
+
+/* Render inline AI insight (after calc results) */
+async function renderInlineAI(targetId, prompt) {
+  const el = document.getElementById(targetId);
+  if (!el) return;
+
+  const key = cacheKey(prompt);
+  const cached = aiCache[key];
+
+  if (!isOnline) {
+    if (cached) {
+      el.innerHTML = buildAIPanel(cached, true);
+    }
+    return;
+  }
+
+  el.innerHTML = buildAIPanel('Menganalisis hasil...', false, true);
+
+  try {
+    const text = await callAI(prompt, 350);
+    el.innerHTML = buildAIPanel(text, false);
+    aiCache[key] = text;
+    saveCache();
+    renderCacheSection();
+  } catch(e) {
+    el.innerHTML = '';
+  }
+}
+
+function buildAIPanel(text, isCached, isLoading) {
+  return `<div class="ai-panel">
+    <div class="ai-panel-header">
+      <div class="ai-panel-title"><i class="ti ti-robot" aria-hidden="true"></i> AI Insight</div>
+      ${isCached ? '<span class="ai-cached-tag">CACHED</span>' : ''}
+    </div>
+    <div class="ai-panel-body${isLoading ? ' loading' : ''}">${text}</div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════
+   AI TAB — FULL CHAT
+   ═══════════════════════════════════════════════ */
+function quickAsk(q) {
+  document.getElementById('ai-question').value = q;
+  sendAI();
+}
+
+async function sendAI() {
+  const q = document.getElementById('ai-question').value.trim();
+  if (!q) return;
+
+  const panel = document.getElementById('ai-main-panel');
+  const body = document.getElementById('ai-main-body');
+  const cacheTag = document.getElementById('ai-main-cache-tag');
+  const btn = document.getElementById('ai-send-btn');
+  panel.classList.remove('hidden');
+
+  const key = cacheKey(q);
+
+  if (!isOnline) {
+    const cached = aiCache[key];
+    if (cached) {
+      body.className = 'ai-panel-body';
+      body.textContent = cached;
+      cacheTag.innerHTML = '<span class="ai-cached-tag">CACHED</span>';
+    } else {
+      body.className = 'ai-panel-body error';
+      body.textContent = 'Offline — jawaban belum tersimpan di cache. Sambungkan internet untuk menggunakan AI.';
+      cacheTag.innerHTML = '';
+    }
+    return;
+  }
+
+  btn.disabled = true;
+  body.className = 'ai-panel-body loading';
+  body.textContent = 'Claude sedang menganalisis...';
+  cacheTag.innerHTML = '';
+
+  try {
+    const text = await callAI(q, 600);
+    body.className = 'ai-panel-body';
+    body.textContent = text;
+    aiCache[key] = text;
+    saveCache();
+    document.getElementById('ai-question').value = '';
+    renderCacheSection();
+  } catch(e) {
+    body.className = 'ai-panel-body error';
+    body.textContent = 'Gagal menghubungi AI. Periksa koneksi internet.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderCacheSection() {
+  const section = document.getElementById('cache-section');
+  const list = document.getElementById('cache-list');
+  const keys = Object.keys(aiCache);
+  if (!keys.length) { section.classList.add('hidden'); return; }
+  section.classList.remove('hidden');
+  list.innerHTML = keys.map((k, i) => `
+    <div class="cache-list-item">
+      <span class="cache-key">${k}...</span>
+      <button class="cache-del" onclick="deleteCache(${i})" aria-label="Hapus">✕</button>
+    </div>`).join('');
+}
+
+function deleteCache(idx) {
+  const keys = Object.keys(aiCache);
+  if (keys[idx]) { delete aiCache[keys[idx]]; saveCache(); renderCacheSection(); }
+}
+
+function clearAllCache() {
+  if (confirm('Hapus semua cache jawaban AI?')) {
+    aiCache = {};
+    saveCache();
+    renderCacheSection();
+    const panel = document.getElementById('ai-main-panel');
+    panel.classList.add('hidden');
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   NUMPAD
+   ═══════════════════════════════════════════════ */
 let currentNumpadTarget = null;
 let numpadVal = '';
 
@@ -491,17 +779,22 @@ function nkConfirm() {
   document.getElementById('numpad-overlay').classList.remove('open');
 }
 
-/* ──────────────── TABS ──────────────── */
+/* ═══════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════ */
 function switchTab(tab) {
-  ['design','ppv','tieup'].forEach(t => {
+  ['design','ppv','tieup','ai'].forEach(t => {
     document.getElementById('tab-'+t).classList.toggle('hidden', t !== tab);
   });
   document.querySelectorAll('.tab').forEach((el,i) => {
-    el.classList.toggle('active', ['design','ppv','tieup'][i] === tab);
+    el.classList.toggle('active', ['design','ppv','tieup','ai'][i] === tab);
   });
+  if (tab === 'ai') renderCacheSection();
 }
 
-/* ──────────────── EVENT HANDLERS ──────────────── */
+/* ═══════════════════════════════════════════════
+   EVENT HANDLERS
+   ═══════════════════════════════════════════════ */
 function onExplosiveChange() {
   document.getElementById('custom-density-field').classList.toggle('hidden',
     document.getElementById('explosive-type').value !== 'custom');
@@ -529,7 +822,9 @@ function autoSpacing() {
   }
 }
 
-/* ──────────────── HELPERS ──────────────── */
+/* ═══════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════ */
 function getVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
 
 function getDensity() {
@@ -542,7 +837,9 @@ function getDensity() {
 
 let lastDesignExpKg = 0;
 
-/* ──────────────── BLAST DESIGN CALC ──────────────── */
+/* ═══════════════════════════════════════════════
+   BLAST DESIGN CALC
+   ═══════════════════════════════════════════════ */
 function calcDesign() {
   const B = getVal('burden'), S = getVal('spacing'), H = getVal('depth');
   const D = getVal('diameter'), T = getVal('stemming'), J = getVal('subdrill');
@@ -579,6 +876,9 @@ function calcDesign() {
   if (sbRatio < 1.0 || sbRatio > 1.35) alerts += alertHTML('warn','Rasio S/B di luar rentang ideal 1.0–1.3. Fragmentasi mungkin tidak merata.');
   if (burdenRatio < 25) alerts += alertHTML('warn','Burden terlalu kecil relatif terhadap diameter (B/D < 25). Risiko crater.');
   if (hasAD) alerts += alertHTML('info','Air deck aktif — dapat mereduksi PPV near-field 20–35% dan meningkatkan distribusi energi.');
+
+  const expType = document.getElementById('explosive-type').value;
+  const expName = {anfo:'ANFO',heavy_anfo:'Heavy ANFO',emulsion:'Emulsion',custom:'Custom'}[expType];
 
   const grid = document.getElementById('design-result-grid');
   grid.innerHTML = `
@@ -618,6 +918,18 @@ function calcDesign() {
     </div>
   `;
   document.getElementById('design-results').classList.remove('hidden');
+
+  // AI Insight
+  const aiPrompt = `Analisis blast design berikut untuk tambang batubara open cut:
+- Burden=${B}m, Spacing=${S}m, Kedalaman=${H}m, Diameter=${D}mm
+- Stemming=${T}m, Subdrill=${J}m${hasAD?', Air deck='+AD+'m':''}
+- Eksplosif: ${expName} (${rho} g/cc)
+- Eksplosif/lubang: ${expKg.toFixed(1)}kg, Total: ${totalExp.toFixed(0)}kg
+- Powder factor: ${powderFactor.toFixed(3)} kg/BCM, S/B ratio: ${sbRatio.toFixed(2)}
+- Total lubang: ${totalHoles} (${rows} baris × ${hpr} lubang)
+Berikan penilaian singkat dan 1-2 rekomendasi paling kritis. Maksimal 4 kalimat.`;
+
+  renderInlineAI('design-ai-panel', aiPrompt);
 }
 
 function alertHTML(type, msg) {
@@ -626,7 +938,9 @@ function alertHTML(type, msg) {
   return `<div class="alert ${cls}"><i class="ti ${icon}" aria-hidden="true"></i><div>${msg}</div></div>`;
 }
 
-/* ──────────────── PPV CALC ──────────────── */
+/* ═══════════════════════════════════════════════
+   PPV CALC
+   ═══════════════════════════════════════════════ */
 function getKN() {
   const t = document.getElementById('rock-type').value;
   if (t === 'hard') return {K:160,n:1.6};
@@ -664,6 +978,7 @@ function calcPPV() {
     : parseFloat(limitEl.value);
 
   const safeR = Math.pow(K/limit, 1/n) * Math.sqrt(MIC);
+  const rockType = document.getElementById('rock-type').value;
 
   const rows = dists.map(R => {
     const ppv = calcPPVAt(R, MIC, K, n);
@@ -680,6 +995,8 @@ function calcPPV() {
       <td><span class="ppv-badge ${cls}">${badge}</span></td>
     </tr>`;
   }).join('');
+
+  const dangerDists = dists.filter(R => calcPPVAt(R, MIC, K, n) >= limit);
 
   document.getElementById('ppv-results').innerHTML = `
     <div class="section">
@@ -709,9 +1026,23 @@ function calcPPV() {
     </div>
   `;
   document.getElementById('ppv-results').classList.remove('hidden');
+
+  // AI Insight
+  const ppvVals = dists.map(R => `${R}m→${calcPPVAt(R,MIC,K,n).toFixed(2)}mm/s`).join(', ');
+  const aiPrompt = `Analisis hasil prediksi PPV beledakan tambang batubara:
+- MIC: ${MIC}kg/delay, Batuan: ${rockType}, K=${K}, n=${n}
+- Batas PPV struktur: ${limit} mm/s
+- Jarak aman minimum: ${safeR.toFixed(0)}m
+- Hasil per jarak: ${ppvVals}
+${dangerDists.length ? '- Jarak BAHAYA (PPV > batas): '+dangerDists.join(', ')+'m' : '- Semua jarak dalam batas aman'}
+Berikan interpretasi singkat dan rekomendasi tindakan jika ada jarak berbahaya. Maks 4 kalimat.`;
+
+  renderInlineAI('ppv-ai-panel', aiPrompt);
 }
 
-/* ──────────────── TIE-UP RECOMMENDATION ──────────────── */
+/* ═══════════════════════════════════════════════
+   TIE-UP RECOMMENDATION
+   ═══════════════════════════════════════════════ */
 function calcTieUp() {
   const rows = parseInt(document.getElementById('t-rows').value)||3;
   const holes = parseInt(document.getElementById('t-holes').value)||5;
@@ -831,6 +1162,17 @@ function calcTieUp() {
     </div>
   `;
   document.getElementById('tieup-results').classList.remove('hidden');
+
+  // AI Insight
+  const goalLabel = {frag:'Fragmentasi optimal',vibration:'Kontrol getaran',both:'Fragmentasi + kontrol getaran'}[goal];
+  const aiPrompt = `Rekomendasi tie-up untuk blast design tambang batubara:
+- ${rows} baris × ${holes} lubang (total ${rows*holes} lubang)
+- Tujuan: ${goalLabel}
+- Muka bebas: ${face === 'corner' ? '2 muka bebas (corner)' : '1 muka bebas'}
+${dist ? '- Jarak ke struktur: '+dist+'m' : ''}
+Berikan 1-2 tips praktis tambahan yang paling relevan untuk kondisi ini. Maks 3 kalimat.`;
+
+  renderInlineAI('tieup-ai-panel', aiPrompt);
 }
 </script>
 </body>
